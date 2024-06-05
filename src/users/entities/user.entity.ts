@@ -19,5 +19,11 @@ export class User {
   tasks: Task[];
 
   @Column({type: 'datetime'})
-  changet_at: Date
+  changet_at: Date;
+
+  @Column()
+  email: string;
+  
+  @Column()
+  password: string;
 }

@@ -9,6 +9,7 @@ import { DataSource } from 'typeorm';
 import { User } from './users/entities/user.entity';
 import { Task } from './tasks/entities/task.entity';
 import { Comment } from './comments/entities/comment.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [UsersModule, TasksModule, CommentsModule, TypeOrmModule.forRoot({
@@ -20,7 +21,7 @@ import { Comment } from './comments/entities/comment.entity';
     database: 'NEST',
     entities: [User, Task, Comment],
     synchronize: true,
-  }),],
+  }), AuthModule,],
   controllers: [AppController],
   providers: [AppService],
 })
