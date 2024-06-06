@@ -1,34 +1,60 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards  } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { AuthGuard } from '@nestjs/passport';
-
+import { ApiTags, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
+import { Task as taskEntity } from 'src/tasks/entities/task.entity';
+@ApiTags('tasks')
+@ApiBearerAuth()
 @Controller('tasks')
 export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
+  @ApiResponse({ status: 201, description: 'успешно', type: taskEntity })
+  @ApiResponse({ status: 401, description: 'Неавториован' })
   @Post()
   create(@Body() createTaskDto: CreateTaskDto) {
     return this.tasksService.create(createTaskDto);
   }
 
-@UseGuards(AuthGuard('jwt'))
+  @ApiResponse({ status: 201, description: 'успешно', type: taskEntity })
+  @ApiResponse({ status: 401, description: 'Неавториован' })
+  @UseGuards(AuthGuard('jwt'))
   @Get()
   findAll() {
     return this.tasksService.findAll();
   }
 
+  @ApiResponse({ status: 201, description: 'успешно', type: taskEntity })
+  @ApiResponse({ status: 401, description: 'Неавториован' })
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.tasksService.findOne(+id);
   }
 
+  @ApiResponse({
+    status: 201,
+    description: 'задача изменена',
+    type: taskEntity,
+  })
+  @ApiResponse({ status: 401, description: 'Неавториован' })
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
     return this.tasksService.update(+id, updateTaskDto);
   }
 
+  @ApiResponse({ status: 201, description: 'задача удалена', type: taskEntity })
+  @ApiResponse({ status: 401, description: 'Неавториован' })
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.tasksService.remove(+id);

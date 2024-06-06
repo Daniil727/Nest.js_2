@@ -3,16 +3,16 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
-import {Comment} from './entities/comment.entity'
+import { Comment } from './entities/comment.entity';
 
 @Injectable()
 export class CommentsService {
-  constructor (
+  constructor(
     @InjectRepository(Comment)
-    private readonly commentsRepository: Repository<Comment>
+    private readonly commentsRepository: Repository<Comment>,
   ) {}
-  
-  create (data: CreateCommentDto){
+
+  create(data: CreateCommentDto) {
     return this.commentsRepository.save(data);
   }
 
@@ -21,14 +21,14 @@ export class CommentsService {
   }
 
   findOne(id: number) {
-    return this.commentsRepository.findOneBy({id});
+    return this.commentsRepository.findOneBy({ id });
   }
 
   update(id: number, data: CreateCommentDto) {
-    return this.commentsRepository.save({...data, id});
+    return this.commentsRepository.save({ ...data, id });
   }
 
- async remove(id: number) {
-    await this.commentsRepository.delete({id});
+  async remove(id: number) {
+    await this.commentsRepository.delete({ id });
   }
 }

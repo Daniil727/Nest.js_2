@@ -1,11 +1,14 @@
 import { Task } from 'src/tasks/entities/task.entity';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { User } from 'src/users/entities/user.entity';
+import { ApiProperty } from '@nestjs/swagger';
 @Entity('comments')
 export class Comment {
-    @PrimaryGeneratedColumn()
+  @ApiProperty()
+  @PrimaryGeneratedColumn()
   id: number;
 
+  @ApiProperty()
   @Column()
   text: string;
 
@@ -15,6 +18,7 @@ export class Comment {
   @ManyToOne(() => User, (user) => user.comments)
   user: User;
 
-  @Column({type: 'datetime'})
-  changet_at: Date
+  @ApiProperty()
+  @Column({ type: 'datetime' })
+  changet_at: Date;
 }
