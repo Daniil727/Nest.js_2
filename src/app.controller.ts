@@ -9,23 +9,23 @@ import { User as userEntity } from 'src/users/entities/user.entity';
 @ApiBearerAuth()
 @Controller()
 export class AppController {
-  constructor(
-    private readonly usersService: UsersService,
-    private authService: AuthService
-  ) {}
+	constructor(
+		private readonly usersService: UsersService,
+		private authService: AuthService,
+	) {}
 
-  @ApiResponse({ status: 201, description: 'зарегался', type: userEntity })
-  @ApiResponse({ status: 401, description: 'Неавториован' })
-  @Post('auth/register')
-  register(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.register(createUserDto);
-  }
+	@ApiResponse({ status: 201, description: 'зарегался', type: userEntity })
+	@ApiResponse({ status: 401, description: 'Неавториован' })
+	@Post('auth/register')
+	register(@Body() createUserDto: CreateUserDto): Promise<userEntity> {
+		return this.usersService.register(createUserDto);
+	}
 
-  @ApiResponse({ status: 201, description: 'залогинился', type: userEntity })
-  @ApiResponse({ status: 401, description: 'Неавториован' })
-  @UseGuards(AuthGuard('local'))
-  @Post('auth/login')
-  async login(@Request() req) {
-    return this.authService.login(req.user);
-  }
+	@ApiResponse({ status: 201, description: 'залогинился', type: userEntity })
+	@ApiResponse({ status: 401, description: 'Неавториован' })
+	@UseGuards(AuthGuard('local'))
+	@Post('auth/login')
+	async login(@Request() req): Promise<{ access_token: string }> {
+		return this.authService.login(req.user);
+	}
 }
