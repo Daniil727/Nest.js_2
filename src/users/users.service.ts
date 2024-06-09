@@ -8,42 +8,42 @@ import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
-  constructor(
-    @InjectRepository(User)
-    private readonly usersRepository: Repository<User>,
-  ) {}
+	constructor(
+		@InjectRepository(User)
+		private readonly usersRepository: Repository<User>,
+	) {}
 
-  async register(data: CreateUserDto) {
-    const saltOrRounds = 10;
-    data.password = await bcrypt.hash(data.password, saltOrRounds);
-    return this.usersRepository.save(data);
-  }
+	async register(data: CreateUserDto): Promise<User> {
+		const saltOrRounds = 10;
+		data.password = await bcrypt.hash(data.password, saltOrRounds);
+		return this.usersRepository.save(data);
+	}
 
-  async login(data: CreateUserDto) {
-    const user = await this.usersRepository.findOneBy({ email: data.email });
-    if (!user) {
-      return false;
-    }
-    return await bcrypt.compare(data.password, user.password);
-  }
+	async login(data: CreateUserDto): Promise<boolean> {
+		const user = await this.usersRepository.findOneBy({ email: data.email });
+		if (!user) {
+			return false;
+		}
+		return await bcrypt.compare(data.password, user.password);
+	}
 
-  create(data: CreateUserDto) {
-    return this.usersRepository.save(data);
-  }
+	create(data: CreateUserDto): Promise<User> {
+		return this.usersRepository.save(data);
+	}
 
-  findAll() {
-    return this.usersRepository.find();
-  }
+	findAll(): Promise<User[]> {
+		return this.usersRepository.find();
+	}
 
-  findOne(email: string) {
-    return this.usersRepository.findOneBy({ email });
-  }
+	findOne(email: string): Promise<User> {
+		return this.usersRepository.findOneBy({ email });
+	}
 
-  update(id: number, data: UpdateUserDto) {
-    return this.usersRepository.save({ ...data, id });
-  }
+	update(id: number, data: UpdateUserDto): Promise<User> {
+		return this.usersRepository.save({ ...data, id });
+	}
 
-  async remove(id: number) {
-    await this.usersRepository.delete({ id });
-  }
+	async remove(id: number): Promise<void> {
+		await this.usersRepository.delete({ id });
+	}
 }

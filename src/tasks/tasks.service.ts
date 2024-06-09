@@ -7,28 +7,28 @@ import { Task } from './entities/task.entity';
 
 @Injectable()
 export class TasksService {
-  constructor (
-    @InjectRepository(Task)
-    private readonly tasksRepository: Repository<Task>
-  ) {}
-  
-  create (data: CreateTaskDto){
-    return this.tasksRepository.save(data);
-  }
+	constructor(
+		@InjectRepository(Task)
+		private readonly tasksRepository: Repository<Task>,
+	) {}
 
-  findAll() {
-    return this.tasksRepository.find();
-  }
+	create(data: CreateTaskDto): Promise<Task> {
+		return this.tasksRepository.save(data);
+	}
 
-  findOne(id: number) {
-    return this.tasksRepository.findOneBy({id});
-  }
+	findAll(): Promise<Task[]> {
+		return this.tasksRepository.find();
+	}
 
-  update(id: number, data: UpdateTaskDto) {
-    return this.tasksRepository.save({...data, id});
-  }
+	findOne(id: number): Promise<Task | null> {
+		return this.tasksRepository.findOneBy({ id });
+	}
 
- async remove(id: number) {
-    await this.tasksRepository.delete({id});
-  }
+	update(id: number, data: UpdateTaskDto): Promise<Task> {
+		return this.tasksRepository.save({ ...data, id });
+	}
+
+	async remove(id: number): Promise<void> {
+		await this.tasksRepository.delete({ id });
+	}
 }
