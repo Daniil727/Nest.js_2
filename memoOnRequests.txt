@@ -1,0 +1,31 @@
+примеры запросов
+
+post регистрация
+
+http://127.0.0.1:3000/auth/register
+
+    {
+    "changet_at":"12-12-12",
+    "firstName":"dsgdfg",
+    "lastName":"fdgdfg",
+    "email":"12@mail.ru",
+    "password":"122222"
+    }
+
+post login
+
+ http://127.0.0.1:3000/auth/login
+
+    {
+    "email":"8@mail.ru",
+    "password":"8"
+    }
+
+post task
+
+ http://127.0.0.1:3000/tasks
+
+    {
+    "changet_at": "12-12-12",
+    "text_task": "asgad"
+    }
