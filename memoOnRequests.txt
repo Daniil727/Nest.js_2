@@ -29,3 +29,8 @@ post task
     "changet_at": "12-12-12",
     "text_task": "asgad"
     }
+
+    загрузка файлов
+
+    post 
+    http://127.0.0.1:3000/file/upload

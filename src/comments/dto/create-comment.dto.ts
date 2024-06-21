@@ -1,5 +1,8 @@
 // import { ApiProperty } from '@nestjs/swagger';
+
 export class CreateCommentDto {
+
+}
 	// тут не понял почему ругается ........
 	//   @ApiProperty({
 	//     description: 'Id комментария',
@@ -21,4 +24,4 @@ export class CreateCommentDto {
 	//     description: 'id пользователя к которому относиться комментарий',
 	//   })
 	//   userId: number;
-}
+

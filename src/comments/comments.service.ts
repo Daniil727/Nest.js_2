@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { Comment } from './entities/comment.entity';
 
+
 @Injectable()
 export class CommentsService {
 	constructor(
@@ -30,4 +31,9 @@ export class CommentsService {
 	async remove(id: number): Promise<void> {
 		await this.commentsRepository.delete({ id });
 	}
+
+	async saveFile(data: CreateCommentDto): Promise<CreateCommentDto> {
+		const file = this.commentsRepository.create(data);
+		return this.commentsRepository.save(file);
+	  }
 }

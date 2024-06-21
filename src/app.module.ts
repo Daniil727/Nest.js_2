@@ -10,6 +10,8 @@ import { User } from './users/entities/user.entity';
 import { Task } from './tasks/entities/task.entity';
 import { Comment } from './comments/entities/comment.entity';
 import { AuthModule } from './auth/auth.module';
+import { FileModule } from './file/file.module';
+import { File } from './file/entities/file.entity';
 
 @Module({
 	imports: [
@@ -23,10 +25,11 @@ import { AuthModule } from './auth/auth.module';
 			username: 'root',
 			password: '',
 			database: 'NEST',
-			entities: [User, Task, Comment],
+			entities: [User, Task, Comment, File],
 			synchronize: false,
 		}),
 		AuthModule,
+		FileModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],
