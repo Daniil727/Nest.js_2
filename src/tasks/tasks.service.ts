@@ -12,23 +12,24 @@ export class TasksService {
 		private readonly tasksRepository: Repository<Task>,
 	) {}
 
-	create(data: CreateTaskDto): Promise<Task> {
+	create(data: CreateTaskDto) {
 		return this.tasksRepository.save(data);
 	}
 
-	findAll(): Promise<Task[]> {
+	findAll() {
 		return this.tasksRepository.find();
 	}
 
-	findOne(id: number): Promise<Task | null> {
+	findOne(id: number) {
 		return this.tasksRepository.findOneBy({ id });
 	}
 
-	update(id: number, data: UpdateTaskDto): Promise<Task> {
+	update(id: number, data: UpdateTaskDto) {
+		console.log({...data})
 		return this.tasksRepository.save({ ...data, id });
 	}
 
-	async remove(id: number): Promise<void> {
+	async remove(id: number) {
 		await this.tasksRepository.delete({ id });
 	}
 }

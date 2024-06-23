@@ -17,7 +17,6 @@ export class CreateTaskDto {
 }
 
 export const CreateTasksSchema = Joi.object({
-	// id: Joi.number().required(),
-	text_task: Joi.string().required(),
-	changet_at: Joi.date().required(),
+		text_task: Joi.string().required(),
+		changet_at: Joi.date().required(),
 });
